@@ -1,0 +1,19 @@
+{
+  "name": "api_server",
+  "version": "0.1.0",
+  "description": "L-POG API",
+  "main": "API_SERVER.js",
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
+  },
+  "author": "Dan Rothman",
+  "license": "ISC",
+  "dependencies": {
+    "properties-reader": "0.0.16",
+    "express": "~4.16.1",
+    "mysql": "2.17.1",
+    "pg": "7.12.1"
+  }
+}
+
+
