@@ -409,7 +409,8 @@ app.use(express.static('public'));
 //app.timeout(240000);
 // listen on port 8080
 app.listen(8080, function() {
-    console.log('***Server listening...');
+    console.log('***Server is listening on 8080...');
+    res.send("HELLO WORLD");
 });
 
 
