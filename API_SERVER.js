@@ -98,10 +98,10 @@ function fillAPIVars(req){
     }
 
     parent = confg.childParentMap()[tablename];
-    orderBy = req.param("orderby");
-    filter = req.param("filter")==null ? "" : req.param("filter");
+    orderBy = req.query.orderby;                                      //req.param("orderby");
+    filter = req.query.filter==null ? "" : req.query.filter;         //req.param("filter")==null ? "" : req.param("filter");
     
-    orderByClause = req.param("orderby")==null ? "" : "ORDER BY " + orderBy + " ";
+    orderByClause = req.query.orderby==null ? "" : "ORDER BY " + orderBy + " ";  //req.param("orderby")==null ? "" : "ORDER BY " + orderBy + " ";
 }
 
 function do_main(client,req,res,mode){
@@ -113,7 +113,7 @@ function do_main(client,req,res,mode){
                     
                         if (mroute.indexOf("by_id") >= 0){
                             //console.log("YOUR PARAMS = " + lookup + "id" + ":" + req.param("id"));
-                            f.getRecordsByID(req.param("id"), tablename,lookup, orderByClause, client, filter, req,res,mssh);
+                            f.getRecordsByID(req.query.id, tablename,lookup, orderByClause, client, filter, req,res,mssh);
                         }else{
                             //console.log("YOUR PARAMS = " +parent+"id:" + req.param(parent + "id"));
                             f.getRecordsByID(req.param(parent + "id"), tablename, parent, 
@@ -132,9 +132,9 @@ function do_main(client,req,res,mode){
                         console.log("EXECUTING GET LAST OF BATCH QUERY");
                         tablename="hardwareids";
                         var lookupTableName = "hardwareid";
-                        var mfdate = req.param("mfdate");
+                        var mfdate = req.query.mfdate;
                         //console.log("mfdate=",mfdate)
-                        var deviceType = req.param("devicetype");
+                        var deviceType = req.query.devicetype;
                         //console.log("deviceType=",deviceType)
                         var mfilter = "";
                         if (mfdate != null && deviceType != null){
@@ -169,19 +169,19 @@ function do_main(client,req,res,mode){
                 }
 
                 if (mode.toUpperCase() == "INSERT"){
-                    tablename = req.param("tablename")
+                    tablename = req.QUERY.tablename;
                     //console.log("tablename=",tablename);
                     f.insertRecords(tablename,client, req,res,mssh);
                 }
 
                 if (mode.toUpperCase() == "MULTIINSERT"){
-                    tablename = req.param("tablename")
+                    tablename = req.query.tablename;
                     //console.log("tablename=",tablename);
                     f.multiInsertRecords(tablename,client, req,res,mssh);
                 }
 
                 if (mode.toUpperCase() == "UPDATE"){
-                    tablename = req.param("tablename")
+                    tablename = req.query.tablename;
                     //let id = req.param("id")
                     //console.log("tablename=",tablename);
                     f.updateRecords(tablename, client, req, res,mssh);
@@ -308,6 +308,7 @@ app.all('/*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   console.log("Allow x-domain requests -- ON");
+
   next();
  });
 ////////////
@@ -410,7 +411,7 @@ app.use(express.static('public'));
 // listen on port 8080
 app.listen(8080, function() {
     console.log('***Server is listening on 8080...');
-    res.send("HELLO WORLD");
+
 });
 
 

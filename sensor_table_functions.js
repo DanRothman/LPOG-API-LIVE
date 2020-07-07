@@ -71,9 +71,15 @@
 
   getRecordsByID: function (id, tablename, lookupTableName, orderByClause, client, filter, req,res,mssh) {
         var whereClause = "";
- 
+        console.log("id = ",id)
+        console.log("tablename = ",tablename)
+        console.log("lookupTableName = ",lookupTableName)
+        console.log("orderbyClause = ",orderByClause)
+        console.log("filter = ",filter)
+
         if (id != null && id.toUpperCase() != "ALL"){
             whereClause = " WHERE " + lookupTableName + "ID=" + id 
+            console.log("have a whereClause, and whereClause = ")
         }
 
         if (filter != ""){
@@ -85,6 +91,7 @@
         }
 
         var q = "SELECT * FROM " + tablename + " " + whereClause + " " + orderByClause + ";";
+        console.log("getRecordByID sql = ", q)
         try{
           //for(i=0;i<15;i++)
         	executeQuery(q,client,res,mssh);
